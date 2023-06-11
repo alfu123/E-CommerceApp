@@ -1,0 +1,77 @@
+.mat-grid-tile {
+    background: gray;
+}
+
+.mat-drawer-container {
+    height: 88.9%;
+    border: 1px solid #555;
+}
+
+.mat-drawer {
+    width: 20%;
+}
+
+.content {
+    padding: 16px;
+}
+
+.content>mat-card {
+    width: 200px;
+}
+
+h3 {
+    overflow: hidden;
+    width: auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 0px;
+}
+
+h4 {
+    margin-bottom: 0px;
+}
+
+button {
+    width: 100%;
+}
+
+.mat-card-image {
+    width: 13em;
+    height: 13em;
+    margin: 8px 0px 16px 0px !important;
+}
+
+.mat-drawer {
+    padding: 8px;
+}
+
+.drawer-content {
+    padding: 16px 0px 16px 0px;
+}
+
+::ng-deep .ngx-slider-pointer {
+    width: 20px !important;
+    height: 20px !important;
+    top: -9px !important;
+}
+
+::ng-deep .ngx-slider-pointer::after {
+    top: 7px !important;
+    left: 6px !important;
+}
+
+::ng-deep .ngx-slider-active::after {
+    background-color: aliceblue !important;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+::ng-deep .mat-drawer-inner-container::-webkit-scrollbar {
+    display: none;
+}
+
+.no-product {
+    margin-top: 2em;
+}

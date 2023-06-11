@@ -1,0 +1,64 @@
+<div class="container">
+    <!-- Loading Product Spinner -->
+    <div fxLayout="row wrap" fxLayoutAlign="center center" *ngIf="showProductSpinner">
+        <mat-spinner diameter="50" class="product-spinner"></mat-spinner>
+    </div>
+    <!-- Display if no product found-->
+    <div fxLayout="row wrap" fxLayoutAlign="center center" *ngIf="!productResponse.data && !showProductSpinner">
+        <h3><strong>No Product Found!</strong></h3>
+    </div>
+    <!-- Product Details -->
+    <div fxLayout="row wrap" fxLayoutAlign="center" *ngIf="productResponse.data[0] != null">
+        <mat-card fxFlex="70%" fxFlex.xs="90%" fxFlex.sm="90%">
+            <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+                <!-- Product Image-->
+                <div fxFlex="40%" fxFlex.xs="90%" class="product-img-container">
+                    <img src="{{productResponse.data[0].imageUrl}}" class="product-image">
+                </div>
+                <!-- Products Other Deatils-->
+                <div fxFlex="40%" fxFlex.xs="90%">
+                    <p><strong>Product ID: </strong>{{productResponse.data[0].pid}}</p>
+                    <p><strong>Product Name: </strong>{{productResponse.data[0].pname}}</p>
+                    <p><strong>Product Brand: </strong>{{productResponse.data[0].brand}}</p>
+                    <p><strong>Product Price: </strong>${{productResponse.data[0].price}}</p>
+                    <p><strong>Product Description: </strong>{{productResponse.data[0].description}}</p>
+                    <!-- Check Availability Form-->
+                    <div>
+                        <p><strong>Check Availability:</strong></p>
+                        <form [formGroup]="availabilityForm" (ngSubmit)="checkAvailability()">
+                            <div fxLayout="row wrap" fxLayoutAlign="left">
+                                <div fxFlex="100%">
+                                    <mat-form-field appearance="outline">
+                                        <input matInput #pincode formControlName="pincode" placeholder="Enter Pincode"
+                                            [type]="'number'" (keydown)="handleKeyboardInput(pincode.value, $event)">
+                                    </mat-form-field>
+                                    <!-- Show Spinner While Fetching Response from API-->
+                                    <mat-spinner diameter="35" *ngIf="showAvailabilitySpinner" class="pincode-spinner">
+                                    </mat-spinner>
+                                    <br>
+                                    <div>
+                                        <span class="alert"
+                                            *ngIf="availabilityForm.controls['pincode'].errors?.['required'] && (availabilityForm.controls['pincode'].touched || availabilityForm.controls['pincode'].dirty)">This
+                                            Field Cannot Be Empty!</span>
+                                        <span class="alert"
+                                            *ngIf="availabilityForm.controls['pincode'].errors?.['minlength'] && (availabilityForm.controls['pincode'].touched || availabilityForm.controls['pincode'].dirty)">Check
+                                            Your Pincode!</span>
+                                        <span class="alert"
+                                            *ngIf="availabilityResponse.data && !availabilityResponse.data.availability">Product
+                                            Not Available!</span>
+                                        <span class="success"
+                                            *ngIf="availabilityResponse.data && availabilityResponse.data.availability">Expected
+                                            Delivery By {{availabilityResponse.data.expectedDelivery}}</span>
+                                    </div>
+
+                                    <button mat-raised-button class="availabilityBtn" type="submit"
+                                        color="accent">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>

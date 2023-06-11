@@ -1,0 +1,38 @@
+.mat-tab-link {
+    width: 50%;
+}
+
+.main-div {
+    margin-top: 5em;
+}
+
+.mat-tab-label-active {
+    background: #2845e9;
+    color: white;
+}
+
+.mat-tab-nav-bar {
+    border-bottom-width: 0px;
+}
+
+.mat-form-field {
+    width: 100%;
+    margin-top: 1em;
+}
+
+.mat-card-content {
+    margin-top: 2em;
+}
+
+::ng-deep .mat-form-field-wrapper {
+    margin-bottom: 0em;
+    padding-bottom: 0em;
+}
+
+.alert {
+    color: red;
+}
+
+.mat-icon {
+    color: black;
+}

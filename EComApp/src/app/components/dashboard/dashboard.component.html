@@ -1,0 +1,88 @@
+<mat-drawer-container autosize>
+    <mat-drawer #drawer mode="side" [opened]="showDrawer">
+        <div class="drawer-header">
+            <h3 align="center"><strong>Filter Results</strong></h3>
+        </div>
+        <div class="drawer-content">
+            <!-- Search By Product Name-->
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Product Name</mat-label>
+                    <input matInput #pname [type]="'text'" placeholder="Enter Product Name"
+                        (keyup)="filterProductsByName(pname.value)">
+                </mat-form-field>
+            </div>
+            <mat-divider></mat-divider>
+            <br>
+            <!-- Price Range Filter -->
+            <div>
+                <mat-accordion>
+                    <mat-expansion-panel (opened)="pricePanelOpen = true" (closed)="pricePanelOpen = false"
+                        [expanded]="pricePanelOpen">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Price Range
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <ngx-slider [(value)]="minPrice" [(highValue)]="maxPrice" [options]="options"
+                            (userChange)="filterProduct()"></ngx-slider>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <br>
+            <mat-divider></mat-divider>
+            <br>
+            <!-- Brand Filter -->
+            <div>
+                <mat-accordion>
+                    <mat-expansion-panel (opened)="brandPanelOpen = true" (closed)="brandPanelOpen = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Brand
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <section *ngFor="let brand of brands">
+                            <mat-checkbox color="accent" [checked]="brand.selected"
+                                (change)="filterProductsByBrand(brand)">
+                                {{brand.label}}
+                            </mat-checkbox>
+                        </section>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+        </div>
+    </mat-drawer>
+    <!-- Main Content -->
+    <mat-drawer-content>
+        <div class="content">
+            <div fxLayout="row wrap" fxLayoutGap="16px grid">
+                <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let product of filteredProducts">
+                    <mat-card class="mat-elevation-z4">
+                        <div fxLayout="row wrap" fxLayoutAlign="center">
+                            <img mat-card-image src="{{product.imageUrl}}">
+                        </div>
+                        <mat-card-content>
+                            <h3>{{product.pname}}</h3>
+                            <h4><strong>Brand:</strong> {{product.brand}}</h4>
+                            <h4><strong>Price:</strong> ${{product.price}}</h4>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <button mat-raised-button color="accent" (click)="viewProduct(product.pid)">View
+                                More</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </div>
+            <!-- Show if no Product Availabale-->
+            <div *ngIf="(filteredProducts.length <= 0) && !showSpinner" fxLayout="row wrap"
+                fxLayoutAlign="center center">
+                <h2 class="no-product">No Product Found!</h2>
+            </div>
+            <!-- Show while fetching products from API-->
+            <div *ngIf="(filteredProducts.length <= 0) && showSpinner" fxLayout="row wrap"
+                fxLayoutAlign="center center">
+                <mat-spinner diameter="50" *ngIf="showSpinner"></mat-spinner>
+            </div>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

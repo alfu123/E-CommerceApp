@@ -1,0 +1,24 @@
+<mat-toolbar color="primary">
+    <!-- Menu Icon for Dashboard Sidenav-->
+    <span *ngIf="showDrawerBtn">
+        <button mat-icon-button (click)="toggleDrawer()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </span>
+    <!-- Website Name -->
+    <span class="app-name" (click)="navigateToHome()">EcomApp</span>
+    <span class="spacer"></span>
+    <!-- Display When User is LoggedIn -->
+    <span *ngIf="getUser()">
+        <span class="user-text">Hi {{username}}</span>
+        <button mat-raised-button color="warn" (click)="logoutUser()">
+            <mat-icon>logout</mat-icon> Logout
+        </button>
+    </span>
+    <!-- Display When User is LoggedOut -->
+    <span *ngIf="!getUser()">
+        <button mat-raised-button color="accent" (click)="loginUser()">
+            <mat-icon>login</mat-icon> Login
+        </button>
+    </span>
+</mat-toolbar>

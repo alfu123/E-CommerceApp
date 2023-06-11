@@ -1,0 +1,113 @@
+<div class="main-div" fxLayout="row wrap" fxLayoutAlign="center">
+    <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
+        <!-- Table Nav Links-->
+        <nav mat-tab-nav-bar mat-align-tabs="center center">
+            <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive
+                #rla="routerLinkActive" [active]="rla.isActive">
+                {{link.label}} </a>
+        </nav>
+        <!-- Tab Panel -->
+        <mat-tab-nav-panel #tabPanel>
+
+            <mat-card>
+                <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlexFill>
+                    <div fxFlex="80">
+                        <!-- Card Title -->
+                        <mat-card-title align="center">User Signup</mat-card-title>
+                        <!-- User Form -->
+                        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                            <!-- Card Content -->
+                            <mat-card-content>
+                                <!-- Name Field -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Full Name</mat-label>
+                                    <input matInput formControlName="uname" [type]="'text'"
+                                        placeholder="Enter Your Name">
+                                </mat-form-field>
+                                <!-- Name Error Field -->
+                                <div>
+                                    <span
+                                        *ngIf="signupForm.controls['uname'].errors?.['required'] && (signupForm.controls['uname'].touched || signupForm.controls['uname'].dirty)"
+                                        class="alert">This Field Cannot Be Empty!</span>
+                                    <span
+                                        *ngIf="signupForm.controls['uname'].errors?.['pattern'] && (signupForm.controls['uname'].touched || signupForm.controls['uname'].dirty)"
+                                        class="alert">Only Alphabetic Characters are Allowed!</span>
+                                </div>
+                                <!-- Username Field -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Username</mat-label>
+                                    <input matInput formControlName="username" [type]="'text'"
+                                        placeholder="Enter Your Username"
+                                        (keydown)="signupError['username'] = ''; (signupForm.controls['username'].value ? signupForm.controls['username'].setErrors(null) : '');">
+                                </mat-form-field>
+                                <!-- Username Error Field -->
+                                <div>
+                                    <span
+                                        *ngIf="signupForm.controls['username'].errors?.['required'] && (signupForm.controls['username'].touched || signupForm.controls['username'].dirty)"
+                                        class="alert">This Field Cannot Be Empty!</span>
+                                    <span
+                                        *ngIf="signupForm.controls['username'].errors?.['pattern'] && (signupForm.controls['username'].touched || signupForm.controls['username'].dirty)"
+                                        class="alert">Only Alphanumeric characters are allowed!</span>
+                                    <span
+                                        *ngIf=" signupError['username'] && (signupForm.controls['username'].touched || signupForm.controls['username'].dirty)"
+                                        class="alert">{{ signupError['username'] }}</span>
+                                </div>
+                                <!-- Password Field -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Password</mat-label>
+                                    <input matInput formControlName="password"
+                                        [type]="hidePassword ? 'password' : 'text'" placeholder="Enter Your Password"
+                                        (keydown)="signupError['password'] = ''; (signupForm.controls['password'].value ? signupForm.controls['password'].setErrors(null) : '');"
+                                        (keyup)="matchPassword(confirm_password.value)">
+                                    <!-- Button to show/hide password -->
+                                    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                                        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                                <!-- Password Error Field -->
+                                <div>
+                                    <span
+                                        *ngIf="signupForm.controls['password'].errors?.['required'] && (signupForm.controls['password'].touched ||signupForm.controls['password'].dirty ) "
+                                        class="alert">This Field Cannot Be Empty!</span>
+                                    <span
+                                        *ngIf=" signupError['password'] && (signupForm.controls['password'].touched || signupForm.controls['password'].dirty)"
+                                        class="alert">{{ signupError['password'] }}</span>
+                                </div>
+                                <!-- Confirm Password Field -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Confirm Password</mat-label>
+                                    <input matInput #confirm_password formControlName="confirmPassword"
+                                        [type]="hideConfirmPassword ? 'password' : 'text'"
+                                        placeholder="Enter Your Password Again"
+                                        (keyup)="matchPassword(confirm_password.value)">
+                                    <!-- Button to show/hide password -->
+                                    <button mat-icon-button matSuffix
+                                        (click)="hideConfirmPassword = !hideConfirmPassword"
+                                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+                                        <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                                <!-- Confirm Password Error Field -->
+                                <div>
+                                    <span
+                                        *ngIf="signupForm.controls['confirmPassword'].errors?.['required'] && (signupForm.controls['confirmPassword'].touched ||signupForm.controls['confirmPassword'].dirty ) "
+                                        class="alert">This Field Cannot Be Empty!</span>
+                                    <span
+                                        *ngIf=" signupError['confirmPassword'] && (signupForm.controls['confirmPassword'].touched || signupForm.controls['confirmPassword'].dirty)"
+                                        class="alert">{{ signupError['confirmPassword'] }}</span>
+                                </div>
+                            </mat-card-content>
+                            <mat-card-actions align="end">
+                                <button mat-raised-button color="primary">Signup</button>
+                                <!-- Show Spinner While Fetching Signup Response from API -->
+                                <mat-spinner *ngIf="showSignupSpinner" diameter="30" color="accent"></mat-spinner>
+                            </mat-card-actions>
+                        </form>
+                    </div>
+                </div>
+            </mat-card>
+
+        </mat-tab-nav-panel>
+    </div>
+</div>

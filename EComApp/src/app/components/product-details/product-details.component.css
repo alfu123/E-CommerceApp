@@ -1,0 +1,58 @@
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+::ng-deep .mat-form-field-flex {
+    height: 50px;
+}
+
+.mat-input-element {
+    margin-bottom: 10px;
+}
+
+::ng-deep .mat-form-field-infix {
+    padding-top: 0.6em !important;
+}
+
+::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0.2em;
+}
+
+.alert {
+    color: red;
+}
+
+.success {
+    color: green;
+}
+
+.availabilityBtn {
+    margin-top: 1em;
+}
+
+.pincode-spinner {
+    display: inline-block;
+    margin-left: 1em;
+}
+
+.product-spinner {
+    margin-top: 5em;
+}
+
+.product-img-container {
+    height: 30em;
+}
+
+.product-image {
+    width: 100%;
+}
+
+.container {
+    margin-top: 2em;
+}
+
+h3 {
+    text-align: center;
+}
